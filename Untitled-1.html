@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Registration</title>
+</head>
+<body>
+
+    <h1>Exam Registration Form</h1>
+
+    <form action="#" method="POST" enctype="multipart/form-data">
+
+        <fieldset>
+            <legend>Personal Information</legend>
+            <p>
+                <label for="fullName">Full Name:</label><br>
+                <input type="text" id="fullName" name="fullName" required>
+            </p>
+            <p>
+                <label for="email">Email Address:</label><br>
+                <input type="email" id="email" name="email" required>
+            </p>
+            <p>
+                <label for="dob">Date of Birth:</label><br>
+                <input type="date" id="dob" name="dob" required>
+            </p>
+        </fieldset>
+
+        <fieldset>
+            <legend>Exam Details</legend>
+            <p>
+                <label for="examCenter">Preferred Exam Center:</label><br>
+                <select id="examCenter" name="examCenter" required>
+                    <option value="" disabled selected>--Select a City--</option>
+                    <option value="delhi">Delhi</option>
+                    <option value="mumbai">Mumbai</option>
+                    <option value="chennai">Chennai</option>
+                    <option value="kolkata">Kolkata</option>
+                </select>
+            </p>
+        </fieldset>
+        
+        <fieldset>
+            <legend>Document Upload</legend>
+            <p>
+                <label for="photo">Upload Photo:</label><br>
+                <input type="file" id="photo" name="photo" accept="image/*" required>
+            </p>
+        </fieldset>
+
+        <br>
+        <input type="submit" value="Register">
+
+    </form>
+
+</body>
+</html>
