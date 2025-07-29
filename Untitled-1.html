@@ -2,57 +2,152 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exam Registration</title>
+    <title>Welcome to surandai Tourism</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f2f2f2;
+            color: #222;
+        }
+
+        header {
+            background: #4040a1;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        nav ul li {
+            display: inline-block;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav ul li a.active {
+            text-decoration: underline;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 6px;
+        }
+
+        h1, h2 {
+            color: #4040a1;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: #ddd;
+            color: #444;
+            margin-top: 40px;
+            border-top: 1px solid #bbb;
+        }
+
+        img {
+            border-radius: 8px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            max-width: 100%;
+            height: auto;
+        }
+
+        ul, ol {
+            margin-left: 25px;
+        }
+
+        .intro {
+            text-align: center;
+        }
+
+        #attractions {
+            margin-top: 60px;
+        }
+    </style>
 </head>
 <body>
 
-    <h1>Exam Registration Form</h1>
+    <header>
+        <h1>Welcome to surandai Tourism</h1>
+        <nav>
+            <ul>
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#attractions">City Attractions</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <form action="#" method="POST" enctype="multipart/form-data">
+    <main id="home">
+        <section class="intro">
+            <h2>Discover surandai</h2>
+            <p>
+                Explore the best of surandai: its history, culture, cuisine, and attractions. Start your journey right here!
+            </p>
+            <img src="Muppidathi_Amman_Kovil_Surandai.jpg" alt="surandai Skyline" width="600">
+        </section>
 
-        <fieldset>
-            <legend>Personal Information</legend>
-            <p>
-                <label for="fullName">Full Name:</label><br>
-                <input type="text" id="fullName" name="fullName" required>
-            </p>
-            <p>
-                <label for="email">Email Address:</label><br>
-                <input type="email" id="email" name="email" required>
-            </p>
-            <p>
-                <label for="dob">Date of Birth:</label><br>
-                <input type="date" id="dob" name="dob" required>
-            </p>
-        </fieldset>
+        <section>
+            <h2>Why Visit surandai?</h2>
+            <ul>
+                <li>Rich cultural heritage and vibrant festivals</li>
+                <li>World-famous cuisine</li>
+                <li>Stunning natural landscapes</li>
+                <li>State-of-the-art museums and historic landmarks</li>
+            </ul>
+        </section>
 
-        <fieldset>
-            <legend>Exam Details</legend>
-            <p>
-                <label for="examCenter">Preferred Exam Center:</label><br>
-                <select id="examCenter" name="examCenter" required>
-                    <option value="" disabled selected>--Select a City--</option>
-                    <option value="delhi">Delhi</option>
-                    <option value="mumbai">Mumbai</option>
-                    <option value="chennai">Chennai</option>
-                    <option value="kolkata">Kolkata</option>
-                </select>
-            </p>
-        </fieldset>
-        
-        <fieldset>
-            <legend>Document Upload</legend>
-            <p>
-                <label for="photo">Upload Photo:</label><br>
-                <input type="file" id="photo" name="photo" accept="image/*" required>
-            </p>
-        </fieldset>
+        <hr style="margin: 40px 0;">
 
-        <br>
-        <input type="submit" value="Register">
+        <section id="attractions">
+            <h2>surandai Must-Visit Attractions</h2>
+            <ol>
+                <li>
+                    <h3>Landmark 1</h3>
+                    <img src="Muppidathi_Amman_Kovil_Surandai.jpg" alt="Landmark 1" width="400">
+                    <p>Description of Landmark 1...</p>
+                </li>
+                <li>
+                    <h3>Landmark 2</h3>
+                    <img src="images.jpg" alt="Landmark 2" width="400">
+                    <p>Description of Landmark 2...</p>
+                </li>
+                <li>
+                    <h3>Landmark 3</h3>
+                    <img src="Untitled-5-4.jpg" alt="Landmark 3" width="400">
+                    <p>Description of Landmark 3...</p>
+                </li>
+            </ol>
+        </section>
 
-    </form>
+        <section>
+            <h2>Helpful Links</h2>
+            <ul>
+                <li><a href="https://www.tourism.[citydomain].gov">Official Tourism Website</a></li>
+                <li><a href="https://www.booking.com/[city]">Find Hotels</a></li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 surandai Tourism. All rights reserved.</p>
+    </footer>
 
 </body>
 </html>
+
