@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cake Order Billing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(120deg, #fff0f5, #ffe4b5);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .order-box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            width: 400px;
+        }
+        
+        .order-box h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #b22222;
+        }
+        
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+        }
+        
+        select,
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+        
+        select:focus,
+        input[type="number"]:focus {
+            border-color: #ff69b4;
+            box-shadow: 0 0 8px rgba(255, 105, 180, 0.5);
+            outline: none;
+        }
+        
+        .toppings {
+            margin-top: 10px;
+        }
+        
+        .toppings label {
+            display: inline-block;
+            margin-right: 10px;
+            font-weight: normal;
+        }
+        
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            background: #ff69b4;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        button:hover {
+            background: #e75480;
+        }
+        
+        #bill {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="order-box">
+        <h2>🍰 Cake Order</h2>
+
+        <label for="cakeType">Select Cake Type:</label>
+        <select id="cakeType">
+      <option value="Chocolate">Chocolate - ₹500</option>
+      <option value="Vanilla">Vanilla - ₹400</option>
+      <option value="RedVelvet">Red Velvet - ₹600</option>
+      <option value="BlackForest">Black Forest - ₹550</option>
+    </select>
+
+        <label for="cakeSize">Select Size:</label>
+        <select id="cakeSize">
+      <option value="Small">Small (₹0 extra)</option>
+      <option value="Medium">Medium (+₹150)</option>
+      <option value="Large">Large (+₹300)</option>
+    </select>
+
+        <label>Select Toppings:</label>
+        <div class="toppings">
+            <label><input type="checkbox" value="100"> Nuts (+₹100)</label>
+            <label><input type="checkbox" value="80"> Choco Chips (+₹80)</label>
+            <label><input type="checkbox" value="120"> Fresh Fruits (+₹120)</label>
+        </div>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" min="1" value="1">
+
+        <button onclick="calculateBill()">Calculate Bill</button>
+
+        <div id="bill"></div>
+    </div>
+
+    <script>
+        // Base prices for cakes
+        const cakePrices = {
+            "Chocolate": 500,
+            "Vanilla": 400,
+            "RedVelvet": 600,
+            "BlackForest": 550
+        };
+
+        // Extra charges for sizes
+        const sizePrices = {
+            "Small": 0,
+            "Medium": 150,
+            "Large": 300
+        };
+
+        function calculateBill() {
+            let cakeType = document.getElementById("cakeType").value;
+            let cakeSize = document.getElementById("cakeSize").value;
+            let quantity = parseInt(document.getElementById("quantity").value);
+
+            if (quantity <= 0 || isNaN(quantity)) {
+                document.getElementById("bill").innerText = "Please enter a valid quantity!";
+                return;
+            }
+
+            let basePrice = cakePrices[cakeType];
+            let sizeExtra = sizePrices[cakeSize];
+
+            // Calculate toppings
+            let toppingTotal = 0;
+            document.querySelectorAll(".toppings input:checked").forEach(topping => {
+                toppingTotal += parseInt(topping.value);
+            });
+
+            let totalPerCake = basePrice + sizeExtra + toppingTotal;
+            let totalBill = totalPerCake * quantity;
+
+            document.getElementById("bill").innerText =
+                `Total Bill: ₹${totalBill} (for ${quantity} ${cakeType} cake${quantity > 1 ? "s" : ""})`;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #e3ffe7, #d9e7ff);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .converter-box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 350px;
+        }
+        
+        .converter-box h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+            text-align: left;
+        }
+        
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+        
+        input:focus,
+        select:focus {
+            border-color: #3399ff;
+            box-shadow: 0 0 8px rgba(51, 153, 255, 0.6);
+            outline: none;
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #3399ff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        button:hover {
+            background: #267acc;
+        }
+        
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="converter-box">
+        <h2>Currency Converter</h2>
+
+        <label for="amount">Enter Amount:</label>
+        <input type="number" id="amount" placeholder="Enter amount" oninput="clearResult()">
+
+        <label for="fromCurrency">From:</label>
+        <select id="fromCurrency" onchange="clearResult()">
+      <option value="USD">USD - US Dollar</option>
+      <option value="EUR">EUR - Euro</option>
+      <option value="INR">INR - Indian Rupee</option>
+      <option value="GBP">GBP - British Pound</option>
+    </select>
+
+        <label for="toCurrency">To:</label>
+        <select id="toCurrency" onchange="clearResult()">
+      <option value="USD">USD - US Dollar</option>
+      <option value="EUR">EUR - Euro</option>
+      <option value="INR">INR - Indian Rupee</option>
+      <option value="GBP">GBP - British Pound</option>
+    </select>
+
+        <button onclick="convertCurrency()">Convert</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        // Fixed conversion rates (for demo)
+        const rates = {
+            "USD": {
+                "USD": 1,
+                "EUR": 0.92,
+                "INR": 83,
+                "GBP": 0.79
+            },
+            "EUR": {
+                "USD": 1.09,
+                "EUR": 1,
+                "INR": 90,
+                "GBP": 0.86
+            },
+            "INR": {
+                "USD": 0.012,
+                "EUR": 0.011,
+                "INR": 1,
+                "GBP": 0.0095
+            },
+            "GBP": {
+                "USD": 1.27,
+                "EUR": 1.16,
+                "INR": 106,
+                "GBP": 1
+            }
+        };
+
+        // Function for conversion
+        function convertCurrency() {
+            let amount = document.getElementById("amount").value;
+            let from = document.querySelector("#fromCurrency").value;
+            let to = document.querySelector("#toCurrency").value;
+
+            if (amount === "" || amount <= 0) {
+                document.getElementById("result").innerText = "Please enter a valid amount.";
+                return;
+            }
+
+            let converted = amount * rates[from][to];
+            document.getElementById("result").innerText =
+                amount + " " + from + " = " + converted.toFixed(2) + " " + to;
+        }
+
+        // Clear result when input changes
+        function clearResult() {
+            document.getElementById("result").innerText = "";
+        }
+    </script>
+</body>
+
+</html>
