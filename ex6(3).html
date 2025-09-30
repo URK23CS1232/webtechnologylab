@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GST Calculator</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        h1 {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .calculator {
+            margin-top: 20px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #444;
+            font-weight: 500;
+        }
+        
+        input[type="number"], select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="number"]:focus, select:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+        
+        .results {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 25px 0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .result-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #333;
+        }
+        
+        .result-label {
+            color: #555;
+        }
+        
+        .result-value {
+            font-weight: 600;
+            color: #667eea;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        button {
+            flex: 1;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        #calculate-btn {
+            background: linear-gradient(to right, #667eea, #764ba2);
+            color: white;
+        }
+        
+        #reset-btn {
+            background-color: #f1f1f1;
+            color: #555;
+            border: 2px solid #e0e0e0;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.7rem;
+            }
+            
+            .buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>GST Calculator</h1>
+        </header>
+        <div class="calculator">
+            <div class="input-group">
+                <label for="amount">Amount:</label>
+                <input type="number" id="amount" placeholder="Enter amount" value="20000" min="0">
+            </div>
+            <div class="input-group">
+                <label for="gst-rate">GST (%):</label>
+                <select id="gst-rate">
+                    <option value="0">0%</option>
+                    <option value="3" selected>3%</option>
+                    <option value="5">5%</option>
+                    <option value="12">12%</option>
+                    <option value="18">18%</option>
+                    <option value="28">28%</option>
+                </select>
+            </div>
+            
+            <div class="results">
+                <div class="result-item">
+                    <span class="result-label">Actual Amount:</span>
+                    <span class="result-value" id="actual-amount">20000.00</span>
+                </div>
+                
+                <div class="result-item">
+                    <span class="result-label">GST:</span>
+                    <span class="result-value" id="gst-amount">600.00</span>
+                </div>
+                
+                <div class="result-item">
+                    <span class="result-label">Total:</span>
+                    <span class="result-value" id="total-amount">20600.00</span>
+                </div>
+            </div>
+            
+            <div class="buttons">
+                <button id="calculate-btn">Calculate</button>
+                <button id="reset-btn">Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            function calculateGST() {
+                const amount = parseFloat($('#amount').val());
+                const gstRate = parseFloat($('#gst-rate').val());
+                if (isNaN(amount) || amount < 0) {
+                    alert('Please enter a valid amount');
+                    return;
+                }
+                const gstAmount = (amount * gstRate) / 100;
+                const totalAmount = amount + gstAmount;
+                $('#actual-amount').text(amount.toFixed(2));
+                $('#gst-amount').text(gstAmount.toFixed(2));
+                $('#total-amount').text(totalAmount.toFixed(2));
+            }
+            $('#calculate-btn').click(function() {
+                calculateGST();
+            });
+            $('#amount').keypress(function(e) {
+                if (e.which === 13) { 
+                    calculateGST();
+                }
+            });
+            $('#gst-rate').change(function() {
+                calculateGST();
+            });
+            $('#reset-btn').click(function() {
+                $('#amount').val('20000');
+                $('#gst-rate').val('3');
+                calculateGST();
+            });
+            $('#amount').focus();
+            calculateGST();
+            $('input, select').focus(function() {
+                $(this).css('background-color', '#f9f9ff');
+            }).blur(function() {
+                $(this).css('background-color', 'white');
+            });
+            function animateResults() {
+                $('.result-value').css('transform', 'scale(1.1)');
+                setTimeout(function() {
+                    $('.result-value').css('transform', 'scale(1)');
+                }, 300);
+            }
+            $('#calculate-btn, #gst-rate').on('click change', function() {
+                setTimeout(animateResults, 100);
+            });
+            $('label').hover(
+                function() {
+                    $(this).fadeTo(200, 0.8);
+                }, 
+                function() {
+                    $(this).fadeTo(200, 1);
+                }
+            );
+            $('button').hover(
+                function() {
+                    $(this).css('box-shadow', '0 7px 20px rgba(0, 0, 0, 0.15)');
+                }, 
+                function() {
+                    $(this).css('box-shadow', '0 5px 15px rgba(0, 0, 0, 0.1)');
+                }
+            );
+        });
+    </script>
+</body>
+</html>
